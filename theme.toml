@@ -1,0 +1,23 @@
+[theme]
+base = "dark"
+primaryColor = "#A7B69A"
+backgroundColor = "#111411"
+secondaryBackgroundColor = "#1A1E19"
+textColor = "#E4E5DC"
+borderColor = "#343A32"
+
+font = "sans-serif"
+headingFont = "sans-serif"
+codeFont = "monospace"
+
+baseFontSize = 14
+baseFontWeight = 400
+showWidgetBorder = false
+showSidebarBorder = true
+baseRadius = "small"
+buttonRadius = "small"
+
+chartCategoricalColors = ["#A7B69A", "#C8B989", "#91A5B1", "#A9A2B5", "#B99A91", "#7D9383"]
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,369 @@
+{
+  "kpis": {
+    "rows": 9,
+    "columns": [
+      "kpi",
+      "value"
+    ]
+  },
+  "range": {
+    "rows": 1,
+    "columns": [
+      "first_date",
+      "last_date",
+      "days_span"
+    ]
+  },
+  "skip_rates": {
+    "rows": 57,
+    "columns": [
+      "dimension",
+      "level",
+      "sort_key",
+      "streams",
+      "skips",
+      "skip_rate",
+      "ci_low",
+      "ci_high"
+    ]
+  },
+  "skip_definitions": {
+    "rows": 8,
+    "columns": [
+      "definition",
+      "streams",
+      "flagged",
+      "share"
+    ]
+  },
+  "skip_by_year": {
+    "rows": 11,
+    "columns": [
+      "year",
+      "streams",
+      "flag_rate",
+      "fwd_rate",
+      "endplay_rate",
+      "primary_skip_rate",
+      "bounce_rate"
+    ]
+  },
+  "skip_model": {
+    "rows": 13,
+    "columns": [
+      "term",
+      "odds_ratio",
+      "ci_low",
+      "ci_high",
+      "p_value"
+    ]
+  },
+  "skip_ablation": {
+    "rows": 6,
+    "columns": [
+      "feature_group",
+      "auc_without",
+      "auc_drop"
+    ]
+  },
+  "skip_model_meta": {
+    "rows": 1,
+    "columns": [
+      "n_streams",
+      "n_train",
+      "n_test",
+      "base_rate",
+      "auc_full_holdout",
+      "reference_platform",
+      "pseudo_r2"
+    ]
+  },
+  "discovery_monthly": {
+    "rows": 128,
+    "columns": [
+      "month",
+      "streams",
+      "hours",
+      "distinct_artists",
+      "distinct_tracks",
+      "new_artists",
+      "new_artists_raw",
+      "new_tracks",
+      "artist_discovery_rate",
+      "track_discovery_rate",
+      "replay_share",
+      "month_idx",
+      "is_ramp_up",
+      "is_last_month"
+    ]
+  },
+  "session_by_hour": {
+    "rows": 24,
+    "columns": [
+      "hour_local",
+      "sessions",
+      "median_tracks",
+      "median_wall_min",
+      "p90_wall_min",
+      "avg_skip_rate"
+    ]
+  },
+  "session_by_dow": {
+    "rows": 7,
+    "columns": [
+      "dow",
+      "weekday",
+      "sessions",
+      "median_tracks",
+      "median_wall_min",
+      "p90_wall_min",
+      "avg_skip_rate"
+    ]
+  },
+  "session_heat": {
+    "rows": 166,
+    "columns": [
+      "dow",
+      "hour_local",
+      "sessions",
+      "median_wall_min"
+    ]
+  },
+  "session_gap_sensitivity": {
+    "rows": 5,
+    "columns": [
+      "gap_min",
+      "sessions",
+      "median_tracks",
+      "median_wall_min",
+      "p90_wall_min"
+    ]
+  },
+  "decay_summary": {
+    "rows": 1,
+    "columns": [
+      "binge_tracks",
+      "usable_tracks",
+      "median_naive_wk",
+      "median_sustained_wk_decayed_only",
+      "share_still_alive"
+    ]
+  },
+  "decay_km": {
+    "rows": 21,
+    "columns": [
+      "week",
+      "at_risk",
+      "events",
+      "survival"
+    ]
+  },
+  "decay_tracks": {
+    "rows": 1293,
+    "columns": [
+      "track_name",
+      "artist",
+      "first_date",
+      "peak_wk",
+      "peak_plays",
+      "naive_halflife_wk",
+      "sustained_halflife_wk",
+      "observed_wk_after_peak",
+      "is_censored",
+      "is_usable"
+    ]
+  },
+  "event_effects": {
+    "rows": 50,
+    "columns": [
+      "event_date",
+      "label",
+      "category",
+      "metric",
+      "before",
+      "after",
+      "pct_change",
+      "share_of_ordinary_days_as_extreme"
+    ]
+  },
+  "daily": {
+    "rows": 3847,
+    "columns": [
+      "date",
+      "streams",
+      "listen_min",
+      "eligible_streams",
+      "skips",
+      "new_artists",
+      "sessions"
+    ]
+  },
+  "recap_monthly": {
+    "rows": 128,
+    "columns": [
+      "month",
+      "qualified_streams",
+      "hours",
+      "thin_month",
+      "track_name",
+      "artist",
+      "track_plays",
+      "top_artist",
+      "top_artist_plays",
+      "night_share",
+      "taste_age_days",
+      "top_artist_share",
+      "effective_artists",
+      "variety_label",
+      "surprise_label",
+      "surprise_z",
+      "longest_session_date",
+      "longest_session_min",
+      "longest_session_tracks"
+    ]
+  },
+  "recap_night_owl": {
+    "rows": 11,
+    "columns": [
+      "year",
+      "qualified_streams",
+      "night_share",
+      "peak_hour"
+    ]
+  },
+  "recap_slow_burns": {
+    "rows": 19,
+    "columns": [
+      "artist",
+      "first_heard",
+      "days_until_first_real_listen",
+      "qualified_plays"
+    ]
+  },
+  "recap_burnout": {
+    "rows": 10,
+    "columns": [
+      "track_name",
+      "artist",
+      "peak_plays",
+      "peak_week_start",
+      "sustained_halflife_wk",
+      "is_censored",
+      "observed_wk_after_peak"
+    ]
+  },
+  "recap_comfort": {
+    "rows": 0,
+    "columns": [
+      "track_name",
+      "artist",
+      "completions",
+      "first_date",
+      "last_date"
+    ]
+  },
+  "recap_love_hate": {
+    "rows": 15,
+    "columns": [
+      "track_name",
+      "artist",
+      "qualified_plays",
+      "skips",
+      "streams",
+      "skip_rate"
+    ]
+  },
+  "recap_reunions": {
+    "rows": 15,
+    "columns": [
+      "artist",
+      "gap_days",
+      "left_on",
+      "returned_on",
+      "plays_before",
+      "plays_since_return"
+    ]
+  },
+  "recap_records": {
+    "rows": 3,
+    "columns": [
+      "record",
+      "value",
+      "track_name",
+      "artist",
+      "start_date",
+      "end_date"
+    ]
+  },
+  "recap_devices": {
+    "rows": 31,
+    "columns": [
+      "year",
+      "platform_family",
+      "streams",
+      "share_of_year",
+      "hours",
+      "skip_rate"
+    ]
+  },
+  "recap_weekend": {
+    "rows": 20,
+    "columns": [
+      "side",
+      "artist",
+      "plays_weekend",
+      "plays_weekday",
+      "weekend_share",
+      "weekday_share",
+      "lift"
+    ]
+  },
+  "recap_shuffle": {
+    "rows": 40,
+    "columns": [
+      "mode",
+      "artist",
+      "plays",
+      "share_of_mode",
+      "rank"
+    ]
+  },
+  "recap_daypart": {
+    "rows": 12,
+    "columns": [
+      "daypart",
+      "rank",
+      "artist",
+      "plays",
+      "share_of_daypart"
+    ]
+  },
+  "recap_anthems": {
+    "rows": 11,
+    "columns": [
+      "year",
+      "track_name",
+      "artist",
+      "plays",
+      "first_date"
+    ]
+  },
+  "recap_one_week_wonders": {
+    "rows": 15,
+    "columns": [
+      "track_name",
+      "artist",
+      "plays",
+      "first_date",
+      "last_date"
+    ]
+  },
+  "recap_facts": {
+    "rows": 7,
+    "columns": [
+      "stat",
+      "value",
+      "detail"
+    ]
+  }
+}

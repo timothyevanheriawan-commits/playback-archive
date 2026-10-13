@@ -1,0 +1,9 @@
+definition,streams,flagged,share
+Spotify skipped flag (all years),450266,143026,0.31764779041722
+reason_end = fwdbtn,450266,93886,0.20851230161726625
+played under threshold,450266,313968,0.6972944881470065
+OLD primary: fwdbtn and under threshold,450266,74330,0.16508019703908355
+"PRIMARY: under threshold, ended by user",450266,309091,0.6864631129154767
+"bounce: under 5 s, ended by user",450266,235404,0.5228109606321597
+"flag set, not primary",450266,18654,0.04142884428315707
+"primary, flag not set",450266,184719,0.4102441667814137

@@ -1,0 +1,4 @@
+record,value,track_name,artist,start_date,end_date
+most plays of one track in 24 hours,15.0,愛你但說不出口,Karencici,2026-03-21,2026-03-22
+longest streak of days with any listening,916.0,,,2020-04-04,2022-10-06
+longest drought (days with no listening),15.0,,,2017-09-03,2017-09-17

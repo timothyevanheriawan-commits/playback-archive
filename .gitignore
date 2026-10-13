@@ -1,0 +1,19 @@
+# Raw Spotify data never goes in git (contains IP addresses and your full history)
+data/raw/*
+!data/raw/.gitkeep
+data/raw_sample/
+
+# Local database and reports
+db/
+reports/
+*.duckdb
+*.duckdb.wal
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Public aggregates ARE committed (data/public)

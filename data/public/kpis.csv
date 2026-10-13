@@ -1,0 +1,10 @@
+kpi,value
+streams_total,485529.0
+hours_total,7708.314133888889
+qualified_streams,153638.0
+distinct_artists,3905.0
+distinct_tracks,13692.0
+skip_rate,0.6864631129154767
+sessions,15352.0
+median_session_min,29.316666666666666
+binge_tracks,1293.0

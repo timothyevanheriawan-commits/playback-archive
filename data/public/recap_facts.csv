@@ -1,0 +1,8 @@
+stat,value,detail
+weekend_weekday_top_artists_shared,19.0,how many of the top 20 weekend artists are also in the top 20 weekday artists
+shuffle_on_off_top_artists_shared,12.0,how many of the top 20 artists with shuffle on are also in the top 20 with shuffle off
+skip_rate_shuffle_on,0.6801270622221219,share of eligible streams skipped with shuffle on
+skip_rate_shuffle_off,0.7099087625529783,share of eligible streams skipped with shuffle off
+one_week_wonders,18.0,tracks played at least 5 times within 14 days and untouched for 365+ days
+one_week_wonders_share_of_tracks,0.0013146362839614374,share of all distinct qualified tracks
+bounce_share_of_all_streams,0.5116913716791376,streams under 5 s that you ended yourself
