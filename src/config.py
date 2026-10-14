@@ -24,7 +24,8 @@ PARAMS = {
     # --- recap (Wrapped-style) settings ---
     "RECAP_MIN_STREAMS": 100,    # months with fewer qualified plays are flagged thin
     "TOPN": 20,                  # size of "top artists" lists used for overlaps
-    "COMFORT_MIN_PLAYS": 10,     # finished this many times and never skipped
+    "COMFORT_MIN_PLAYS": 10,     # finished naturally this many times...
+"COMFORT_MAX_SKIP_RATE": 0.20,  # ...with a skip rate at or below thist or below this
     "LOVEHATE_MIN_PLAYS": 15,    # qualified plays needed for the love-hate list
     "REUNION_GAP_DAYS": 365,     # silence that counts as "dropped" an artist
     "REUNION_MIN_PLAYS": 10,     # plays needed both before the gap and after the return

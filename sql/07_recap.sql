@@ -194,7 +194,8 @@ SELECT any_value(track_name) AS track_name, any_value(artist) AS artist,
        min(local_date) AS first_date, max(local_date) AS last_date
 FROM r_streams
 GROUP BY track_uri
-HAVING count(*) FILTER (WHERE is_skip) = 0
+HAVING count(*) FILTER (WHERE is_skip) * 1.0
+           / NULLIF(count(*) FILTER (WHERE eligible), 0) <= {{COMFORT_MAX_SKIP_RATE}}
    AND count(*) FILTER (WHERE reason_end = 'trackdone') >= {{COMFORT_MIN_PLAYS}}
 ORDER BY completions DESC
 LIMIT 15;
