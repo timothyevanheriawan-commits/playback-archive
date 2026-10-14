@@ -253,7 +253,7 @@
     ]
   },
   "recap_comfort": {
-    "rows": 0,
+    "rows": 4,
     "columns": [
       "track_name",
       "artist",
