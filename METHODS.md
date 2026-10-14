@@ -36,7 +36,7 @@ Recap definitions (all thresholds in `src/config.py`):
 
 | Term | Definition |
 |---|---|
-| Comfort song | finished naturally 10+ times and never skipped |
+| Comfort song | finished naturally 10+ times with a skip rate at or below 10% |
 | Love-hate track | 15+ qualified plays and a skip rate at or above your overall rate |
 | Reunion | an artist with a gap of 365+ days between listening days, with 10+ plays before the gap and 10+ after |
 | One-week wonder | 5+ qualified plays all within 14 days, then untouched for 365+ days before the data ends |
@@ -87,12 +87,11 @@ means it is within normal drift. The first 90 days are excluded as burn-in.
 
 4. **The skip rule, revised on real data.** The first rule was `fwdbtn` and under 30 s,
    designed before seeing the export. On the real export (about 506k raw rows, 2016 to
-   2026) the profile showed that Spotify's `skipped` flag is 0.000 for 2016 to 2021, 0.160
-   in 2022, and 0.63 to 0.79 from 2023. In 2023 and 2024 it is roughly equal to the
+   2026) the profile showed that Spotify's `skipped` flag is 0.000 for 2016 to 2021, 0.161 in 2022, and 0.64 to 0.81 from 2023. In 2023 and 2024 it is roughly equal to the
    `fwdbtn` rate plus the `endplay` rate, so it looks like "did not finish the track"
    rather than "skipped" (an inference from two columns, not documented by Spotify).
-   The `fwdbtn` rate itself moves from about 2% (2016 to 2018) to 37% (2021) to 19% (2023),
-   while the share of streams under 5 s stays between 45% and 60% every year. Stable
+   The `fwdbtn` rate itself moves from 2% or less (2016 to 2018) to 33% (2021) to 19% (2023),
+   while the share of streams under 5 s stays between 46% and 59% every year. Stable
    behaviour with unstable labels suggests the logging changed, so labels are not
    comparable across years. The primary rule now uses duration plus "ended by the user".
    The old rule is kept in `m_skip_definitions` and `m_skip_by_year` so the change is auditable.
@@ -109,7 +108,8 @@ Add your own revisions here as you find them. Reviewers like seeing them.
   in the export. If you used Spotify before the export starts, early "first listens" are
   not truly first.
 - **Offline and incognito.** Offline plays are synced later and may be missing or odd.
-  Incognito (private session) plays are not in the history at all.
+  Incognito (private session) plays are in the export and are kept, flagged in
+  `stg_streams.incognito` (2,185 streams, 0.45% of music streams).
 - **Shared accounts and other people's plays** look like your behavior.
 - **Fixed time zone.** Travel is not handled. `conn_country` could be used to adjust.
 - **Event overlay is descriptive.** Days are autocorrelated and many metrics are compared,

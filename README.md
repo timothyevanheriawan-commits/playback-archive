@@ -1,4 +1,4 @@
-# Listening Ledger — Spotify archive
+# Playback Archive — Spotify archive
 
 A Streamlit dashboard for exploring a personal Spotify extended streaming history.
 
@@ -25,10 +25,10 @@ Keep the existing `src/` and `data/public/` directories in place. The redesign e
 
 Add `data/public/recap_artist_yearly.parquet` (CSV also accepted) with at least these columns:
 
-| Column | Meaning |
-|---|---|
-| `artist` | Artist name |
-| `year` | Calendar year |
+| Column               | Meaning                                          |
+| -------------------- | ------------------------------------------------ |
+| `artist`             | Artist name                                      |
+| `year`               | Calendar year                                    |
 | `streams` or `plays` | Recorded play count for that artist in that year |
 
 Rows should represent recorded artist-year listening counts, not only the artist that led a month or year. The index is the number of covered years in which the artist has a positive play count divided by the number of years in the annual archive. It measures persistence, not preference.
