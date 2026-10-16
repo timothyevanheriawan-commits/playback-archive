@@ -3,6 +3,7 @@ pandas>=2.0
 numpy>=1.26
 scipy>=1.11
 statsmodels>=0.14
-# added later for the dashboard:
-# streamlit
-# plotly
+streamlit>=1.50
+pandas>=2.0
+altair>=5
+pyarrow>=14
