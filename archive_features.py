@@ -217,7 +217,7 @@ def render_listening_eras(t: dict, d: dict) -> None:
         for col in ("Skip rate (mean)", "Night share (mean)"):
             if col in display:
                 display[col] = display[col].map(lambda x: _pct(x, 1))
-        st.dataframe(display, hide_index=True, use_container_width=True)
+        st.dataframe(display, hide_index=True, width="stretch")
 
     selected_changes = changes[changes["position"].isin(selected_positions)].sort_values("position")
     if not selected_changes.empty:
@@ -226,7 +226,7 @@ def render_listening_eras(t: dict, d: dict) -> None:
             y=alt.Y("shift_score:Q", title="Relative shift", axis=alt.Axis(labels=False, ticks=False)),
             tooltip=["boundary", alt.Tooltip("shift_score:Q", format=".2f"), "main_shift"],
         )
-        st.altair_chart(_chart_theme(chart, 170), use_container_width=True)
+        st.altair_chart(_chart_theme(chart, 170), width="stretch")
         st.caption("Boundary scores average normalized changes across the available behavior metrics. They rank shifts within this archive; they are not statistical proof of a life event.")
     last_year = int(profile["year"].max())
     st.caption(f"The last available year is {last_year}. If it is incomplete, yearly volume and era averages involving it should not be compared as full-year totals.")
@@ -325,18 +325,18 @@ def render_period_compare(t: dict, d: dict) -> None:
     rows = []
     for label, av, bv, fmt in comparisons:
         rows.append({"Metric": label, "Earlier": _pct(av, 1) if fmt == "pct" else _fmt_num(av, 2), "Later": _pct(bv, 1) if fmt == "pct" else _fmt_num(bv, 2), "Change": _describe_metric_delta(float(av), float(bv), fmt) if pd.notna(av) and pd.notna(bv) else "—"})
-    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+    st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
     artist_left, artist_right = st.columns(2)
     with artist_left:
         st.markdown("**Artists featuring in earlier monthly top tracks**")
         if "top_month_artists" in a:
-            st.dataframe(a["top_month_artists"], hide_index=True, use_container_width=True)
+            st.dataframe(a["top_month_artists"], hide_index=True, width="stretch")
         else:
             st.caption("No monthly top-track artist table is available for this period.")
     with artist_right:
         st.markdown("**Artists featuring in later monthly top tracks**")
         if "top_month_artists" in b:
-            st.dataframe(b["top_month_artists"], hide_index=True, use_container_width=True)
+            st.dataframe(b["top_month_artists"], hide_index=True, width="stretch")
         else:
             st.caption("No monthly top-track artist table is available for this period.")
     st.caption("Total plays and listening hours depend on period length. Use the daily rate, weighted ratios, and minutes-per-play figure for more useful behavioral comparisons. The last year may be incomplete.")
@@ -388,14 +388,14 @@ def render_artist_loyalty(t: dict, d: dict) -> None:
         show["Loyalty index"] = show["Loyalty index"].map(lambda x: f"{x:.0f}/100")
         show["total_plays"] = show["total_plays"].map(_fmt_num)
         show = show.rename(columns={"artist": "Artist", "total_plays": "Recorded plays", "Years active": "Years active"})
-        st.dataframe(show[["Artist", "Loyalty index", "Years active", "Recorded plays"]], hide_index=True, use_container_width=True)
+        st.dataframe(show[["Artist", "Loyalty index", "Years active", "Recorded plays"]], hide_index=True, width="stretch")
         chart_data = indexed.head(15).sort_values("Loyalty index", ascending=True)
         chart = alt.Chart(chart_data).mark_bar(color=SAGE, size=13, cornerRadiusEnd=2).encode(
             x=alt.X("Loyalty index:Q", title="Share of covered years active", scale=alt.Scale(domain=[0, 100])),
             y=alt.Y("artist:N", title=None, sort="-x"),
             tooltip=["artist", alt.Tooltip("Loyalty index:Q", format=".1f"), "active_years", alt.Tooltip("total_plays:Q", format=",")],
         )
-        st.altair_chart(_chart_theme(chart, max(220, len(chart_data) * 23)), use_container_width=True)
+        st.altair_chart(_chart_theme(chart, max(220, len(chart_data) * 23)), width="stretch")
         st.caption("Definition: active years ÷ years covered in the annual archive × 100. This measures persistence, not affection, and ignores play counts when deciding the index score.")
         return
 
@@ -445,7 +445,7 @@ def render_artist_loyalty(t: dict, d: dict) -> None:
     fallback = pd.DataFrame(records.values()).sort_values(
         ["Monthly top-track months", "Year anthem appearances", "Daypart #1 appearances"], ascending=False
     )
-    st.dataframe(fallback.head(30), hide_index=True, use_container_width=True)
+    st.dataframe(fallback.head(30), hide_index=True, width="stretch")
     st.caption("To enable the numeric index, add `data/public/recap_artist_yearly.parquet` (or CSV) with columns `artist`, `year`, and `streams` or `plays`. Rows should represent an artist's recorded plays in each active year.")
 
 
@@ -549,7 +549,7 @@ def render_track_lifecycle(t: dict, d: dict) -> None:
             color=alt.Color("appearance:N", title=None, scale=alt.Scale(domain=["Monthly top track", "Yearly anthem"], range=[SAGE, OCHRE]), legend=None),
             tooltip=[alt.Tooltip("date:T", title="Date", format="%b %Y"), "appearance", alt.Tooltip("plays_in_summary:Q", title="Plays in summary", format=",")],
         )
-        st.altair_chart(_chart_theme(chart, 180), use_container_width=True)
+        st.altair_chart(_chart_theme(chart, 180), width="stretch")
     else:
         st.caption("This track has no dated appearances in the monthly or annual anthem summaries.")
 
@@ -560,19 +560,19 @@ def render_track_lifecycle(t: dict, d: dict) -> None:
         if "month" in show:
             show["month"] = pd.to_datetime(show["month"], errors="coerce").dt.strftime("%Y-%m")
             show = show.sort_values("month", ascending=False)
-        st.dataframe(show, hide_index=True, use_container_width=True)
+        st.dataframe(show, hide_index=True, width="stretch")
     if not anthem_hits.empty:
         _heading("Yearly anthem records", "Years in which this track was the most-played track, according to the yearly summary table.")
-        st.dataframe(anthem_hits, hide_index=True, use_container_width=True)
+        st.dataframe(anthem_hits, hide_index=True, width="stretch")
     if not skip_hits.empty:
         _heading("Play and skip evidence", "These figures come from the project's existing qualified-play definition.")
-        st.dataframe(skip_hits, hide_index=True, use_container_width=True)
+        st.dataframe(skip_hits, hide_index=True, width="stretch")
     if not burnout_hits.empty:
         _heading("Burnout summary", "Half-life and censoring are shown as produced by the existing analysis; the method notes warn that this measure may be coarse.")
-        st.dataframe(burnout_hits, hide_index=True, use_container_width=True)
+        st.dataframe(burnout_hits, hide_index=True, width="stretch")
     if not wonder_hits.empty:
         _heading("One-week wonder record", "This track appears in the existing short-lived listening summary.")
-        st.dataframe(wonder_hits, hide_index=True, use_container_width=True)
+        st.dataframe(wonder_hits, hide_index=True, width="stretch")
 
 
 def render_fingerprint(t: dict, d: dict) -> None:
@@ -617,7 +617,7 @@ def render_fingerprint(t: dict, d: dict) -> None:
     if hour_mode is not None:
         details.append({"Dimension": "Most common busiest hour", "Finding": f"{int(hour_mode):02d}:00 across annual records.", "How to read it": "This is the mode of each year's busiest hour, not the most common listening hour across all plays."})
     if details:
-        st.dataframe(pd.DataFrame(details), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(details), hide_index=True, width="stretch")
 
     left, right = st.columns(2, gap="large")
     with left:
@@ -628,7 +628,7 @@ def render_fingerprint(t: dict, d: dict) -> None:
                 y=alt.Y("night_share:Q", title=None, axis=alt.Axis(format="%"), scale=alt.Scale(zero=True)),
                 tooltip=["year:O", alt.Tooltip("night_share:Q", title="Night share", format=".1%")],
             )
-            st.altair_chart(_chart_theme(ch, 230), use_container_width=True)
+            st.altair_chart(_chart_theme(ch, 230), width="stretch")
     with right:
         if "skip" in profile:
             _heading("Skip rate by year", "Track the direction over time; do not interpret short plays as dislike automatically.")
@@ -637,11 +637,11 @@ def render_fingerprint(t: dict, d: dict) -> None:
                 y=alt.Y("skip:Q", title=None, axis=alt.Axis(format="%"), scale=alt.Scale(zero=True)),
                 tooltip=["year:O", alt.Tooltip("skip:Q", title="Skip rate", format=".1%")],
             )
-            st.altair_chart(_chart_theme(ch, 230), use_container_width=True)
+            st.altair_chart(_chart_theme(ch, 230), width="stretch")
     cols = [c for c in ("year", "streams", "hours", "mpp", "skip", "night_share", "peak_hour") if c in profile.columns]
     annual = profile[cols].copy()
     annual = annual.rename(columns={"year": "Year", "streams": "Plays", "hours": "Hours", "mpp": "Minutes / play", "skip": "Skip rate", "night_share": "Night share", "peak_hour": "Busiest hour"})
-    st.dataframe(annual, hide_index=True, use_container_width=True)
+    st.dataframe(annual, hide_index=True, width="stretch")
     st.caption("If the last year is partial, its volume and patterns may reflect only the months currently present in the export.")
 
 

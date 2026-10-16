@@ -34,7 +34,7 @@ from archive_features import render_explore
 
 
 
-st.set_page_config(page_title="Listening Ledger · Spotify archive", page_icon="♫", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Playback Archive · Spotify archive", page_icon="♫", layout="wide", initial_sidebar_state="expanded")
 
 DATA = Path(__file__).parent / "data" / "public"
 
@@ -66,33 +66,35 @@ MONO = "IBM Plex Mono"
 CSS = Template(
     """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400..700&display=swap');
 :root {
     --canvas:$canvas; --surface:$surface; --surface-alt:$surface_alt;
     --rule:$rule; --text:$text; --muted:$muted; --sage:$sage; --ochre:$ochre;
-    --head:'DM Sans',sans-serif; --body:'DM Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
+    --head:'Newsreader',Georgia,serif; --body:'DM Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
 }
 .stApp {background:var(--canvas);}
 .stApp, .stMarkdown, .stCaption {font-family:var(--body);}
 #MainMenu, footer {visibility:hidden;}
-.block-container {max-width:1180px; padding-top:2rem; padding-bottom:3.5rem;}
+header[data-testid="stHeader"] {background:transparent;}
+.hero .v, .card .v {font-variant-numeric:lining-nums tabular-nums;}
+.block-container {max-width:1180px; padding-top:4.5rem; padding-bottom:3.5rem;}
 
 /* Archive identity: understated, no gradient hero treatment. */
 .kicker {font-family:var(--mono); font-size:.7rem; font-weight:500; color:var(--sage); letter-spacing:.11em; text-transform:uppercase;}
-.title {font-family:var(--head); font-size:clamp(2.6rem,4.4vw,3.7rem); font-weight:700; letter-spacing:-.055em; line-height:1.02;
+.title {font-family:var(--head); font-size:clamp(2.6rem,4.4vw,3.7rem); font-weight:600; letter-spacing:-.025em; line-height:1.05;
         margin:.65rem 0 .8rem 0; color:var(--text);}
 .sub {font-size:.96rem; color:var(--muted); line-height:1.65; max-width:500px;}
 .hero {background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:22px 24px; min-height:152px;}
-.hero .l {font-family:var(--mono); font-size:.7rem; font-weight:500; color:var(--muted); letter-spacing:.07em; text-transform:uppercase;}
-.hero .v {font-family:var(--head); font-size:clamp(2.35rem,3.5vw,3.2rem); font-weight:650; letter-spacing:-.055em; line-height:1.05;
+.hero .l {font-family:var(--mono); font-size:.76rem; font-weight:500; color:var(--muted); letter-spacing:.07em; text-transform:uppercase;}
+.hero .v {font-family:var(--head); font-size:clamp(2.35rem,3.5vw,3.2rem); font-weight:600; letter-spacing:-.02em; line-height:1.05;
           color:var(--text); margin:.55rem 0 .45rem;}
 .hero .n {font-size:.83rem; color:var(--muted); line-height:1.5;}
 
 .strip {display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0; margin:1.15rem 0 .6rem; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
 .card {background:var(--surface); border:1px solid var(--rule); border-radius:8px; padding:15px 17px;}
 .strip .card {background:transparent; border:0; border-radius:0; padding:16px 16px 17px 0;}
-.card .k {font-family:var(--mono); font-size:.68rem; font-weight:400; color:var(--muted); letter-spacing:.045em; text-transform:uppercase;}
-.card .v {font-family:var(--head); font-size:1.8rem; font-weight:600; letter-spacing:-.04em; color:var(--text); margin:.35rem 0 .25rem; line-height:1.15;}
+.card .k {font-family:var(--mono); font-size:.74rem; font-weight:400; color:var(--muted); letter-spacing:.045em; text-transform:uppercase;}
+.card .v {font-family:var(--head); font-size:1.8rem; font-weight:600; letter-spacing:-.015em; color:var(--text); margin:.35rem 0 .25rem; line-height:1.15;}
 .card .d {font-size:.82rem; color:var(--muted); line-height:1.5;}
 
 .take {display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:0 22px; margin:.8rem 0 1.2rem;}
@@ -127,7 +129,7 @@ div[data-baseweb="tab-border"] {background-color:var(--rule) !important;}
 [data-testid="stAlert"] {border-radius:8px;}
 
 @media (max-width: 760px) {
-  .block-container {padding-top:1.15rem; padding-bottom:2.5rem;}
+  .block-container {padding-top:4rem; padding-bottom:2.5rem;}
   .title {font-size:2.55rem;}
   .hero {margin-top:.6rem;}
   .strip {grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -194,7 +196,7 @@ def need(name: str) -> pd.DataFrame:
 
 def load_tables() -> dict:
 
-    names = ["monthly", "night_owl", "slow_burns", "burnout", "love_hate", "reunions", "records", "devices"
+    names = ["monthly", "night_owl", "slow_burns", "burnout", "love_hate", "reunions", "records", "devices",
              "anthems", "daypart", "one_week_wonders"]
 
     t = {n: need(f"recap_{n}") for n in names}
@@ -330,7 +332,7 @@ def finish(chart, height: int = 300):
 
 def draw(chart) -> None:
 
-    st.altair_chart(chart, use_container_width=True, theme=None)
+    st.altair_chart(chart, width="stretch", theme=None)
 
 
 
@@ -680,13 +682,13 @@ def cover(d: dict, t: dict) -> None:
 
         st.markdown(
 
-            '<div class="kicker">Listening Ledger / personal Spotify archive</div>'
+            '<div class="kicker">Playback Archive / personal Spotify archive</div>'
 
             '<div class="title">A decade in rotation.</div>'
 
             f'<div class="sub">A record of what stayed, what changed, and what found its way back, {y0}–{y1}. '
 
-            'Track names may be redacted in the public version.</div>',
+            '</div>',
 
             unsafe_allow_html=True,
 
@@ -846,7 +848,7 @@ def timeline(d: dict, t: dict) -> None:
 
         if cal is not None:
 
-            st.altair_chart(cal, use_container_width=False, theme=None)
+            st.altair_chart(cal, width="content", theme=None)
 
     else:
 
@@ -874,7 +876,7 @@ def timeline(d: dict, t: dict) -> None:
 
     st.dataframe(m[["month", "track_name", "artist", "track_plays", "hours"]].sort_values("month", ascending=False),
 
-                 hide_index=True, use_container_width=True)
+                 hide_index=True, width="stretch")
 
 
 
@@ -978,7 +980,7 @@ def favorites(d: dict, t: dict) -> None:
 
     draw(anthem_chart(t["anthems"]))
 
-    st.dataframe(t["anthems"].rename(columns={"first_date": "first played"}), hide_index=True, use_container_width=True)
+    st.dataframe(t["anthems"].rename(columns={"first_date": "first played"}), hide_index=True, width="stretch")
 
 
 
@@ -992,13 +994,13 @@ def favorites(d: dict, t: dict) -> None:
 
         st.dataframe(love[["track_name", "artist", "qualified_plays", "skips", "skip_rate"]],
 
-                     hide_index=True, use_container_width=True)
+                     hide_index=True, width="stretch")
 
     with right:
 
         figure("Brief, intense listening")
 
-        st.dataframe(t["one_week_wonders"], hide_index=True, use_container_width=True)
+        st.dataframe(t["one_week_wonders"], hide_index=True, width="stretch")
 
 
 
@@ -1008,7 +1010,7 @@ def favorites(d: dict, t: dict) -> None:
 
                                "sustained_halflife_wk", "is_censored"]],
 
-                 hide_index=True, use_container_width=True)
+                 hide_index=True, width="stretch")
 
 
 
@@ -1054,7 +1056,7 @@ def notes(d: dict, t: dict) -> None:
 
 - **Qualified plays:** some tables only count plays that pass a minimum rule. The exact rule is in `src/`.
 
-- **Redaction:** track names may be hidden in the public version.
+- **Names:** track and artist names are shown as recorded.
 
 - **Partial year:** {int(d['last']['year'])} is not finished.
 
@@ -1066,7 +1068,7 @@ def notes(d: dict, t: dict) -> None:
 
         figure("How a skip is defined", "Different definitions give different skip rates.")
 
-        st.dataframe(t["skip_definitions"], hide_index=True, use_container_width=True)
+        st.dataframe(t["skip_definitions"], hide_index=True, width="stretch")
 
     st.markdown(
 
@@ -1113,9 +1115,9 @@ def main() -> None:
 
     cover(d, t)
 
-    names = ["Overview", "Timeline", "Habits", "Track archive", "Comebacks", "Method notes"]
+    names = ["Overview", "Timeline", "Habits", "Track archive", "Comebacks", "Explore", "Method notes"]
 
-    for tab, render in zip(st.tabs(names), (overview, timeline, habits, favorites, comebacks, notes)):
+    for tab, render in zip(st.tabs(names), (overview, timeline, habits, favorites, comebacks, lambda d, t: render_explore(t, d), notes)):
 
         with tab:
 
@@ -1125,7 +1127,7 @@ def main() -> None:
 
     st.markdown('<div class="foot">Built from my Spotify extended streaming history. '
 
-                'Track names may be redacted in the public version.</div>', unsafe_allow_html=True)
+                '</div>', unsafe_allow_html=True)
 
 
 

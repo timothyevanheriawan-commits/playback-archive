@@ -2,7 +2,7 @@
 data/raw/*
 !data/raw/.gitkeep
 data/raw_sample/
-
+data/events.csv
 # Local database and reports
 db/
 reports/
